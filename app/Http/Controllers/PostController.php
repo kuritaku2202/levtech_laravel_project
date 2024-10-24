@@ -11,12 +11,6 @@ class PostController extends Controller
     {
         return view('posts.index') ->with(['posts' => $post->getPaginateByLimit()]);
     }
-/**
- * 特定IDのpostを表示する
- *
- * @params Object Post // 引数の$postはid=1のPostインスタンス
- * @return Reposnse post view
- */
     public function show(Post $post)
     {
         return view('posts.show') ->with(['post'=> $post]);
@@ -31,6 +25,19 @@ class PostController extends Controller
     {
         $input = $request['post'];
         $post->fill($input)->save();
+        return redirect('/posts/' . $post->id);
+    }
+    public function edit(Post $post)
+    {
+        return view('posts/edit') ->with(['post'=> $post]);
+    }
+    public function update(PostRequest $request, Post $post)
+    {
+        // if (!$post) {
+        //     abort(404, 'Post not found');
+        // }
+        $input_post = $request['post'];
+        $post->fill($input_post)->save();
         return redirect('/posts/' . $post->id);
     }
 
