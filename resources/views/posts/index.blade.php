@@ -32,10 +32,18 @@
             <div class="paginate">
                 {{$posts -> links()}}
             </div>
+            <div class="questions">
+                @foreach ($questions as $question )
+                <div><a href="https://teratail.com/questions/{{ $question['id'] }}">{{ $question['title'] }}</a></div>
+                @endforeach
+            </div>
+            <div class="login_user_name">
+                ログインユーザー：{{Auth::user()->name}}
+            </div>
             <script>
                 function deletePost(id) {
                     'use strict'
-    
+
                     if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
                         document.getElementById(`form_${id}`).submit();
                     }
